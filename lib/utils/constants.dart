@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-const USER_URL = 'https://randomuser.me/api?results=100&page=1';
+const USER_URL = 'https://randomuser.me/api/';
 const IMG_URL =
     'https://s3-us-west-2.amazonaws.com/appsdeveloperblog.com/tutorials/files/cats.json';
 

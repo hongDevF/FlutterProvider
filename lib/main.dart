@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
   runApp(
     MyApp(),
   );
@@ -31,6 +30,10 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           themeMode: themeState.themeMode,
           theme: ThemeData(
+            appBarTheme: AppBarTheme(
+              iconTheme: IconThemeData(),
+            ),
+            useMaterial3: true,
             brightness: Brightness.light,
             primarySwatch: Colors.blue,
             primaryColor: CO_DARKRED,

@@ -1,54 +1,20 @@
 // ignore_for_file: avoid_print
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutterprovider/models/user_model.dart';
-import 'package:flutterprovider/repository/api_status.dart';
+import 'package:flutter/material.dart';
 import 'package:flutterprovider/services/api_service.dart';
+import '../models/user_model.dart';
 
-import '../models/user_error.dart';
+class UserModelProvider with ChangeNotifier {
+  UserService userService = UserService();
 
-class UserViewModel with ChangeNotifier {
-  bool _loading = false;
-  UserError _userError = UserError();
+  UserModel? _userModel;
+  UserModel? get userModel => _userModel;
 
-  List<Users> _userListModel = [];
-
-  bool get loading => _loading;
-
-  List<Users> get userListModel => _userListModel;
-  UserError get userError => _userError;
-
-  setLoading(bool loading) async {
-    _loading = loading;
-    notifyListeners();
-  }
-
-  UserViewModel() {
-    getUsers();
-  }
-  setUserListModel(List<Users> userListModel) {
-    _userListModel = userListModel;
-  }
-
-  setUserError(UserError userError) {
-    _userError = userError;
-  }
-
-  getUsers() async {
-    setLoading(true);
-    var response = await UserService().getUsers();
-    if (response is Success) {
-      setUserListModel(response.response as List<Users>);
-      print('test');
+  Future<void> fetchUserModel() async {
+    if (_userModel == null) {
+      final user = await userService.getUsers();
+      _userModel = user;
+    } else {
+      _userModel;
     }
-
-    if (response is Failure) {
-      UserError userError = UserError(
-        code: response.code,
-        message: response.errorResponse,
-      );
-      setUserError(userError);
-    }
-    setLoading(false);
   }
 }

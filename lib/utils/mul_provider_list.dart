@@ -11,13 +11,13 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 List<SingleChildWidget> providers = [
-  ChangeNotifierProvider(create: (_) => UserViewModel()),
+  ChangeNotifierProvider(create: (_) => UserModelProvider()),
   ChangeNotifierProvider(create: (_) => ThemeChangerProvider()),
   ChangeNotifierProvider(create: (_) => ProductNotifier()),
   ChangeNotifierProvider(create: (_) => TodoViewModel()),
   ChangeNotifierProvider(create: (_) => ImageViewModel()),
   ChangeNotifierProvider(create: (_) => ProductViewModel()),
-  ChangeNotifierProvider(create: (_) => UserNotify()),
+  // ChangeNotifierProvider(create: (_) => UserNotify()),
   ChangeNotifierProvider(create: (_) => AuthViewModel()),
   ChangeNotifierProvider(create: (_) => ThemeSetting()),
 ];

@@ -1,210 +1,346 @@
 // To parse this JSON data, do
 //
-//     final users = usersFromJson(jsonString);
+//     final userModel = userModelFromJson(jsonString);
 
 import 'dart:convert';
 
-Users usersFromJson(String str) => Users.fromJson(json.decode(str));
+UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 
-String usersToJson(Users data) => json.encode(data.toJson());
+String userModelToJson(UserModel data) => json.encode(data.toJson());
 
-class Users {
-  Users({
-    this.id,
-    this.uid,
-    this.password,
-    this.firstName,
-    this.lastName,
-    this.username,
-    this.email,
-    this.avatar,
-    this.gender,
-    this.phoneNumber,
-    this.socialInsuranceNumber,
-    this.dateOfBirth,
-    this.employment,
-    this.address,
-    this.creditCard,
-    this.subscription,
+class UserModel {
+  UserModel({
+    required this.results,
+    required this.info,
   });
 
-  int? id;
-  String? uid;
-  String? password;
-  String? firstName;
-  String? lastName;
-  String? username;
-  String? email;
-  String? avatar;
-  String? gender;
-  String? phoneNumber;
-  String? socialInsuranceNumber;
-  DateTime? dateOfBirth;
-  Employment? employment;
-  Address? address;
-  CreditCard? creditCard;
-  Subscription? subscription;
+  List<Result> results;
+  Info info;
 
-  factory Users.fromJson(Map<String, dynamic> json) => Users(
-        id: json["id"],
-        uid: json["uid"],
-        password: json["password"],
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        username: json["username"],
-        email: json["email"],
-        avatar: json["avatar"],
-        gender: json["gender"],
-        phoneNumber: json["phone_number"],
-        socialInsuranceNumber: json["social_insurance_number"],
-        dateOfBirth: DateTime.parse(json["date_of_birth"]),
-        employment: Employment.fromJson(json["employment"]),
-        address: Address.fromJson(json["address"]),
-        creditCard: CreditCard.fromJson(json["credit_card"]),
-        subscription: Subscription.fromJson(json["subscription"]),
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+        results:
+            List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+        info: Info.fromJson(json["info"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "uid": uid,
-        "password": password,
-        "first_name": firstName,
-        "last_name": lastName,
-        "username": username,
-        "email": email,
-        "avatar": avatar,
-        "gender": gender,
-        "phone_number": phoneNumber,
-        "social_insurance_number": socialInsuranceNumber,
-        "date_of_birth":
-            "${dateOfBirth!.year.toString().padLeft(4, '0')}-${dateOfBirth!.month.toString().padLeft(2, '0')}-${dateOfBirth!.day.toString().padLeft(2, '0')}",
-        "employment": employment!.toJson(),
-        "address": address!.toJson(),
-        "credit_card": creditCard!.toJson(),
-        "subscription": subscription!.toJson(),
+        "results": List<dynamic>.from(results.map((x) => x.toJson())),
+        "info": info.toJson(),
       };
 }
 
-class Address {
-  Address({
-    this.city,
-    this.streetName,
-    this.streetAddress,
-    this.zipCode,
-    this.state,
-    this.country,
-    this.coordinates,
+class Info {
+  Info({
+    this.seed,
+    this.results,
+    this.page,
+    this.version,
   });
 
-  String? city;
-  String? streetName;
-  String? streetAddress;
-  String? zipCode;
-  String? state;
-  String? country;
-  Coordinates? coordinates;
+  String? seed;
+  int? results;
+  int? page;
+  String? version;
 
-  factory Address.fromJson(Map<String, dynamic> json) => Address(
-        city: json["city"],
-        streetName: json["street_name"],
-        streetAddress: json["street_address"],
-        zipCode: json["zip_code"],
-        state: json["state"],
-        country: json["country"],
-        coordinates: Coordinates.fromJson(json["coordinates"]),
+  factory Info.fromJson(Map<String, dynamic> json) => Info(
+        seed: json["seed"],
+        results: json["results"],
+        page: json["page"],
+        version: json["version"],
       );
 
   Map<String, dynamic> toJson() => {
+        "seed": seed,
+        "results": results,
+        "page": page,
+        "version": version,
+      };
+}
+
+class Result {
+  Result({
+    this.gender,
+    this.name,
+    this.location,
+    this.email,
+    this.login,
+    this.dob,
+    this.registered,
+    this.phone,
+    this.cell,
+    this.id,
+    this.picture,
+    this.nat,
+  });
+
+  String? gender;
+  Name? name;
+  Location? location;
+  String? email;
+  Login? login;
+  Dob? dob;
+  Dob? registered;
+  String? phone;
+  String? cell;
+  Id? id;
+  Picture? picture;
+  String? nat;
+
+  factory Result.fromJson(Map<String, dynamic> json) => Result(
+        gender: json["gender"],
+        name: Name.fromJson(json["name"]),
+        location: Location.fromJson(json["location"]),
+        email: json["email"],
+        login: Login.fromJson(json["login"]),
+        dob: Dob.fromJson(json["dob"]),
+        registered: Dob.fromJson(json["registered"]),
+        phone: json["phone"],
+        cell: json["cell"],
+        id: Id.fromJson(json["id"]),
+        picture: Picture.fromJson(json["picture"]),
+        nat: json["nat"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "gender": gender,
+        "name": name!.toJson(),
+        "location": location!.toJson(),
+        "email": email,
+        "login": login!.toJson(),
+        "dob": dob!.toJson(),
+        "registered": registered!.toJson(),
+        "phone": phone,
+        "cell": cell,
+        "id": id!.toJson(),
+        "picture": picture!.toJson(),
+        "nat": nat,
+      };
+}
+
+class Dob {
+  Dob({
+    this.date,
+    this.age,
+  });
+
+  DateTime? date;
+  int? age;
+
+  factory Dob.fromJson(Map<String, dynamic> json) => Dob(
+        date: DateTime.parse(json["date"]),
+        age: json["age"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "date": date!.toIso8601String(),
+        "age": age,
+      };
+}
+
+class Id {
+  Id({
+    required this.name,
+    this.value,
+  });
+
+  String name;
+  dynamic value;
+
+  factory Id.fromJson(Map<String, dynamic> json) => Id(
+        name: json["name"],
+        value: json["value"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "value": value,
+      };
+}
+
+class Location {
+  Location({
+    this.street,
+    this.city,
+    this.state,
+    this.country,
+    this.postcode,
+    this.coordinates,
+    this.timezone,
+  });
+
+  Street? street;
+  String? city;
+  String? state;
+  String? country;
+  int? postcode;
+  Coordinates? coordinates;
+  Timezone? timezone;
+
+  factory Location.fromJson(Map<String, dynamic> json) => Location(
+        street: Street.fromJson(json["street"]),
+        city: json["city"],
+        state: json["state"],
+        country: json["country"],
+        postcode: json["postcode"],
+        coordinates: Coordinates.fromJson(json["coordinates"]),
+        timezone: Timezone.fromJson(json["timezone"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "street": street!.toJson(),
         "city": city,
-        "street_name": streetName,
-        "street_address": streetAddress,
-        "zip_code": zipCode,
         "state": state,
         "country": country,
+        "postcode": postcode,
         "coordinates": coordinates!.toJson(),
+        "timezone": timezone!.toJson(),
       };
 }
 
 class Coordinates {
   Coordinates({
-    this.lat,
-    this.lng,
+    this.latitude,
+    this.longitude,
   });
 
-  double? lat;
-  double? lng;
+  String? latitude;
+  String? longitude;
 
   factory Coordinates.fromJson(Map<String, dynamic> json) => Coordinates(
-        lat: json["lat"].toDouble(),
-        lng: json["lng"].toDouble(),
+        latitude: json["latitude"],
+        longitude: json["longitude"],
       );
 
   Map<String, dynamic> toJson() => {
-        "lat": lat,
-        "lng": lng,
+        "latitude": latitude,
+        "longitude": longitude,
       };
 }
 
-class CreditCard {
-  CreditCard({
-    this.ccNumber,
+class Street {
+  Street({
+    this.number,
+    this.name,
   });
 
-  String? ccNumber;
+  int? number;
+  String? name;
 
-  factory CreditCard.fromJson(Map<String, dynamic> json) => CreditCard(
-        ccNumber: json["cc_number"],
+  factory Street.fromJson(Map<String, dynamic> json) => Street(
+        number: json["number"],
+        name: json["name"],
       );
 
   Map<String, dynamic> toJson() => {
-        "cc_number": ccNumber,
+        "number": number,
+        "name": name,
       };
 }
 
-class Employment {
-  Employment({
+class Timezone {
+  Timezone({
+    this.offset,
+    this.description,
+  });
+
+  String? offset;
+  String? description;
+
+  factory Timezone.fromJson(Map<String, dynamic> json) => Timezone(
+        offset: json["offset"],
+        description: json["description"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "offset": offset,
+        "description": description,
+      };
+}
+
+class Login {
+  Login({
+    this.uuid,
+    this.username,
+    this.password,
+    this.salt,
+    this.md5,
+    this.sha1,
+    this.sha256,
+  });
+
+  String? uuid;
+  String? username;
+  String? password;
+  String? salt;
+  String? md5;
+  String? sha1;
+  String? sha256;
+
+  factory Login.fromJson(Map<String, dynamic> json) => Login(
+        uuid: json["uuid"],
+        username: json["username"],
+        password: json["password"],
+        salt: json["salt"],
+        md5: json["md5"],
+        sha1: json["sha1"],
+        sha256: json["sha256"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "uuid": uuid,
+        "username": username,
+        "password": password,
+        "salt": salt,
+        "md5": md5,
+        "sha1": sha1,
+        "sha256": sha256,
+      };
+}
+
+class Name {
+  Name({
     this.title,
-    this.keySkill,
+    this.first,
+    this.last,
   });
 
   String? title;
-  String? keySkill;
+  String? first;
+  String? last;
 
-  factory Employment.fromJson(Map<String, dynamic> json) => Employment(
+  factory Name.fromJson(Map<String, dynamic> json) => Name(
         title: json["title"],
-        keySkill: json["key_skill"],
+        first: json["first"],
+        last: json["last"],
       );
 
   Map<String, dynamic> toJson() => {
         "title": title,
-        "key_skill": keySkill,
+        "first": first,
+        "last": last,
       };
 }
 
-class Subscription {
-  Subscription({
-    this.plan,
-    this.status,
-    this.paymentMethod,
-    this.term,
+class Picture {
+  Picture({
+    this.large,
+    this.medium,
+    this.thumbnail,
   });
 
-  String? plan;
-  String? status;
-  String? paymentMethod;
-  String? term;
+  String? large;
+  String? medium;
+  String? thumbnail;
 
-  factory Subscription.fromJson(Map<String, dynamic> json) => Subscription(
-        plan: json["plan"],
-        status: json["status"],
-        paymentMethod: json["payment_method"],
-        term: json["term"],
+  factory Picture.fromJson(Map<String, dynamic> json) => Picture(
+        large: json["large"],
+        medium: json["medium"],
+        thumbnail: json["thumbnail"],
       );
 
   Map<String, dynamic> toJson() => {
-        "plan": plan,
-        "status": status,
-        "payment_method": paymentMethod,
-        "term": term,
+        "large": large,
+        "medium": medium,
+        "thumbnail": thumbnail,
       };
 }

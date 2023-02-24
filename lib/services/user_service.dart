@@ -2,26 +2,23 @@
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../models/user_model.dart';
 
-import '../models/usermodel.dart';
 
 class UserService {
   // final USER_URL = ' http://localhost:3000/api/users';
-  Future<List<Users>?> getAllUser() async {
-    const String USER_URL = 'http://localhost:3000/api/users';
-    final url = Uri.parse(USER_URL);
-    final response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      final json = jsonDecode(response.body) as List;
-      final user = json.map((e) {
-        return Users(
-          id: e['id'],
-          userName: e['userName'],
-        );
-      }).toList();
-      return user;
+  Future<UserModel> getAllUser() async {
+    try {
+      final response = await http.get(Uri.parse('https://randomuser.me/api'));
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        final data = UserModel.fromJson(jsonData);
+        return data;
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (error) {
+      throw error;
     }
-    return [];
   }
 }
