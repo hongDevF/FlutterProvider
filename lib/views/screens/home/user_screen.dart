@@ -48,13 +48,24 @@ class _UserScreenState extends State<UserScreen> {
                   alignment: Alignment.center,
                   child: ListView(
                     children: [
-                      ListTile(
-                        leading: CircleAvatar(
-                          radius: 40,
-                          backgroundImage: NetworkImage(
-                            provider.userModel!.results[0].picture!.medium!,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          CircleAvatar(
+                            radius: 80,
+                            backgroundImage: NetworkImage(
+                              provider.userModel!.results[0].picture!.medium!,
+                            ),
                           ),
-                        ),
+                          CircleAvatar(
+                            radius: 80,
+                            backgroundImage: NetworkImage(
+                              provider.userModel!.results[0].picture!.large!,
+                            ),
+                          ),
+                        ],
+                      ),
+                      ListTile(
                         title:
                             Text(provider.userModel!.results[0].name!.first!),
                         subtitle: Text(
