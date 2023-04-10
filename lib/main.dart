@@ -33,10 +33,10 @@ class MyApp extends StatelessWidget {
             appBarTheme: AppBarTheme(
               iconTheme: IconThemeData(),
             ),
-            useMaterial3: true,
+            // useMaterial3: true,
             brightness: Brightness.light,
             primarySwatch: Colors.blue,
-            primaryColor: CO_DARKRED,
+            primaryColor: CO_WHITE,
           ),
           darkTheme: ThemeData(
             brightness: Brightness.dark,

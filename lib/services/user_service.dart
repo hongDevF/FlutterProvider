@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/user_model.dart';
 
-
 class UserService {
   // final USER_URL = ' http://localhost:3000/api/users';
   Future<UserModel> getAllUser() async {
@@ -18,7 +17,7 @@ class UserService {
         throw Exception('Failed to load data');
       }
     } catch (error) {
-      throw error;
+      rethrow;
     }
   }
 }

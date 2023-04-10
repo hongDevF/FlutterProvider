@@ -8,6 +8,11 @@ class Utils {
     Fluttertoast.showToast(msg: msg, backgroundColor: bg);
   }
 
+  static GlobalRoute({required BuildContext context, required Widget screen}) {
+    return Navigator.push(
+        context, MaterialPageRoute(builder: (context) => screen));
+  }
+
   static flutterFlushBar() {
     // return FlutterF();
   }

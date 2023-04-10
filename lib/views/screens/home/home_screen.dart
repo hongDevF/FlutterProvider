@@ -2,7 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutterprovider/routes/route_name.dart';
+import 'package:flutterprovider/utils/utils.dart';
 import 'package:flutterprovider/view_models/auth_view_model.dart';
+import 'package:flutterprovider/views/screens/chats/note_screen.dart';
+import 'package:flutterprovider/views/screens/university_screen.dart';
 import 'package:flutterprovider/views/widgets/global/colors.dart';
 import 'package:flutterprovider/views/widgets/global/custom_text.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -167,10 +170,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   itemBuilder: ((context, index) {
                     return InkWell(
-                      onTap: () {
-                        print(svg[index].toUpperCase());
-                        showGeneralDialogBuilder(context, index);
-                      },
+                      // onTap: () {
+                      //   print(svg[index].toUpperCase());
+                      //   showGeneralDialogBuilder(context, index);
+                      // },
                       child: TemperatureButton(
                         svg: svg[index],
                       ),
@@ -194,29 +197,52 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPress: () => Navigator.pushNamed(context, RouteNames.home1),
                 ),
               ),
+              // University buttton
+              _DefailButtonNav(
+                onTap: () => Utils.GlobalRoute(
+                  context: context,
+                  screen: const UniversityScreen(),
+                ),
+                btnName: 'University',
+              ),
+
+              // To Chat button nava
+              _DefailButtonNav(
+                btnName: 'Chat',
+                onTap: () => Utils.GlobalRoute(
+                  context: context,
+                  screen: const NoteListSCreen(),
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
   }
+}
 
-  Future<Object?> showGeneralDialogBuilder(BuildContext context, int index) {
-    return showGeneralDialog(
-        context: context,
-        barrierDismissible: true,
-        barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
-        barrierColor: Colors.black45,
-        transitionDuration: const Duration(milliseconds: 800),
-        pageBuilder: (BuildContext buildContext, Animation animation,
-            Animation secondaryAnimation) {
-          return Scaffold(
-            backgroundColor: Colors.transparent,
-            body: SafeArea(
-              child: Center(),
-            ),
-          );
-        });
+class _DefailButtonNav extends StatelessWidget {
+  const _DefailButtonNav({
+    required this.btnName,
+    required this.onTap,
+  });
+  final String btnName;
+  final Function() onTap;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(40),
+        color: CO_BLUE,
+      ),
+      margin: EdgeInsets.all(15),
+      width: double.infinity,
+      child: CustomTextButton(
+        color: CO_WHITE,
+        name: btnName,
+        onPress: onTap,
+      ),
+    );
   }
 }

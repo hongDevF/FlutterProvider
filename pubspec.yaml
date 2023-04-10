@@ -54,6 +54,14 @@ dependencies:
   new_gradient_app_bar: ^0.2.0
   flutter_svg: ^1.1.6
   percent_indicator: ^4.2.2
+  image_cropper: ^3.0.1
+  flutter_localization: ^0.1.10
+  intl: ^0.17.0
+
+  # new learn
+  sqflite: ^2.2.6
+  path_provider: ^2.0.14
+  path: ^1.8.2
 
 dev_dependencies:
   flutter_test:

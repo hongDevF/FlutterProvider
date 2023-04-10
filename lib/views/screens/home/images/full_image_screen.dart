@@ -18,9 +18,7 @@ class _FullImageScreenState extends State<FullImageScreen> {
   @override
   Widget build(BuildContext context) {
     final image = ModalRoute.of(context)!.settings.arguments as ImageModel;
-
     final Uri uri = Uri.parse(image.url!);
-
     Future<void> _launchUrl() async {
       if (!await launchUrl(uri)) {
         throw 'Could not launch $uri';
